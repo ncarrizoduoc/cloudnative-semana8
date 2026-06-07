@@ -55,6 +55,7 @@ public class GuiaController {
     public ResponseEntity<Guia> registrarGuia(
                                             @RequestParam("bucketName") String bucketName,
                                             @Valid @RequestBody GuiaRequest request) throws IOException{
+        //Creacion de la guia en base de datos
         Guia creado = guiaService.registrarGuia(request);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
