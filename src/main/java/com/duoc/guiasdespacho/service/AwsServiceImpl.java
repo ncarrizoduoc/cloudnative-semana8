@@ -115,6 +115,8 @@ public class AwsServiceImpl implements AwsService {
         return fileKey;
     }
 
+    // Metodo que valida que un bucket S3 exista con su nombre
+    // Si no existe, lanza una excepcion
     public void validarBucket(String bucketName) throws ResourceNotFoundException{
         if(!s3Client.doesBucketExistV2(bucketName)){
             throw new ResourceNotFoundException("No existe el bucket con nombre: " + bucketName);
