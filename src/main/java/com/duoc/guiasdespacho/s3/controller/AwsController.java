@@ -34,12 +34,12 @@ public class AwsController {
     @Autowired
     private AwsServiceImpl awsService;
 
-    @GetMapping("/getS3FileContent")
+    @GetMapping("/readFile")
     public ResponseEntity<String> getS3FileContent(@RequestParam(value = "bucketName") String bucketName, @RequestParam(value = "fileKey") String fileKey) throws IOException{
         return new ResponseEntity<>(awsService.getS3FileContent(bucketName, fileKey), HttpStatus.OK);
     }
 
-    @GetMapping("/listS3Files")
+    @GetMapping("/listFiles")
     public ResponseEntity<List<Asset>> getS3Files(@RequestParam(value = "bucketName") String bucketName) throws IOException{
         List<Asset> list = new ArrayList<>();
         HttpStatus status = HttpStatus.OK;
@@ -51,7 +51,7 @@ public class AwsController {
         return new ResponseEntity<>(list, status);
     }
 
-    @GetMapping("/downloadS3File")
+    @GetMapping("/downloadFile")
     public ResponseEntity<ByteArrayResource> downloadS3File(@RequestParam(value = "bucketName") String bucketName,
                                                             @RequestParam(value = "fileKey") String fileKey) throws IOException{
         byte[] data = awsService.downloadFile(bucketName, fileKey);
@@ -64,7 +64,7 @@ public class AwsController {
             .body(resource);
     }
 
-    @DeleteMapping("/deleteObject")
+    @DeleteMapping("/deleteFile")
     public ResponseEntity<String> deleteFile(@RequestParam(value = "bucketName") String bucketName, @RequestParam(value = "fileKey") String fileKey){
         awsService.deleteObject(bucketName, fileKey);
         return new ResponseEntity<>("File deleted", HttpStatus.OK);
